@@ -27,12 +27,19 @@ def index(request):
     # Render HTML
     return render(request, 'index.html', context={'num_books': num_books, 'num_instances': num_instances,
                                              'num_instances_available': num_instances_available,
-                                             'num_authors': num_authors, 'num_visits': num_visits})
+                                             'num_authors': num_authors, 'num_visits': num_visits, 'nbar': 'home'})
 
 
 class BookListView(generic.ListView):
     model = Book
     paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add navigation bar information
+        context['nbar'] = 'books'
+        return context
 
 
 class BookDetailView(generic.DetailView):
@@ -42,6 +49,13 @@ class BookDetailView(generic.DetailView):
 class AuthorListView(generic.ListView):
     model = Author
     paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add navigation bar information
+        context['nbar'] = 'authors'
+        return context
 
 
 class AuthorDetailView(generic.DetailView):

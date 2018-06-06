@@ -1,13 +1,26 @@
-.sidebar-nav {
-    margin-top: 20px;
-    padding: 0;
-    list-style: none;
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-.jumbotron {
-    margin-top: 20px;
+.navbar {
+  margin-bottom: 20px;
 }
 
 #home-logo {
     margin-top: 20px;
+}
+
+.jumbotron {
+    background:linear-gradient(rgba(255, 153, 0, 0.90), rgba(125, 125, 250, 0.95)),
+    url("/static/images/bookshelf.jpg");
+    background-attachment: fixed;
+}
+
+.jumbotron > p {
+    font-family: "serif"
+}
+
+.jumbotron > h1 {
+    font-family: "helvetica, serif"
 }
