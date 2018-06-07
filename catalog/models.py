@@ -68,6 +68,20 @@ class Book(models.Model):
         """
         return reverse('book-detail', args=[str(self.id)])
 
+    def get_absolute_delete_url(self):
+        """
+
+        :return: the url to delete this book.
+        """
+        return reverse('book-delete', args=[str(self.id)])
+
+    def get_absolute_update_url(self):
+        """
+
+        :return: the url to update this book.
+        """
+        return reverse('book-update', args=[str(self.id)])
+
 
 class BookInstance(models.Model):
     """

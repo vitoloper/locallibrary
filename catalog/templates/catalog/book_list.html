@@ -1,16 +1,49 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Book List</h1>
+    <div class="inline-elem">
+      <h1>Book List</h1>
+      {% if perms.catalog.add_book %}
+        <span class="pull-right"><a href="{% url 'book-create' %}" class="btn btn-primary" role="button">Add book</a></span>
+      {% endif %}
+    </div>
 
     {% if book_list %}
     <ul class="list-group">
 
-      {% for book in book_list %}
+      <!-- {% for book in book_list %}
       <li class="list-group-item">
         <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
       </li>
-      {% endfor %}
+      {% endfor %} -->
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            {% if perms.catalog.delete_book or perms.catalog.change_book %}
+            <th class="col-md-2">Action</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for book in book_list %}
+            <tr>
+              <td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></td>
+              <td>{{ book.author }}</td>
+              <td class="col-md-2">
+                {% if perms.catalog.delete_book %}
+                  <a href="{{ book.get_absolute_delete_url }}"><span class="glyphicon glyphicon-remove"></span></a>&nbsp;&nbsp;&nbsp;
+                {% endif %}
+                {% if perms.catalog.change_book %}
+                  <a href="{{ book.get_absolute_update_url }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
     </ul>
     {% else %}

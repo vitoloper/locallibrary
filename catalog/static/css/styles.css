@@ -24,3 +24,13 @@ body {
 .jumbotron > h1 {
     font-family: "helvetica, serif"
 }
+
+.inline-elem h1 {
+    display: inline-block;
+}
+
+.inline-elem span {
+    display: inline-block;
+    margin-top: 20px;
+}
+
