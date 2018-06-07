@@ -1,18 +1,41 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Author List</h1>
+    <div class="inline-elem">
+      <h1>Author List</h1>
+      {% if perms.catalog.add_author %}
+        <span class="pull-right"><a href="{% url 'author-create' %}" class="btn btn-primary" role="button">Add author</a></span>
+      {% endif %}
+    </div>
 
     {% if author_list %}
-    <ul class="list-group">
-
-      {% for author in author_list %}
-      <li class="list-group-item">
-        <a href="{{ author.get_absolute_url }}">{{ author.first_name }} {{ author.last_name }}</a>
-      </li>
-      {% endfor %}
-
-    </ul>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            {% if perms.catalog.delete_author or perms.catalog.change_author %}
+            <th class="col-md-2">Action</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for author in author_list %}
+            <tr>
+              <td><a href="{{ author.get_absolute_url }}">{{ author.first_name }} {{ author.last_name}}</a></td>
+              {% if perms.catalog.delete_author or perms.catalog.change_author %}
+                <td class="col-md-2">
+                  {% if perms.catalog.delete_author %}
+                    <a href="{{ author.get_absolute_delete_url }}"><span class="glyphicon glyphicon-remove"></span></a>&nbsp;&nbsp;&nbsp;
+                  {% endif %}
+                  {% if perms.catalog.change_author %}
+                    <a href="{{ author.get_absolute_update_url }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                  {% endif %}
+                </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     {% else %}
       <p>There are no authors.</p>
     {% endif %}

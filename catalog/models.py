@@ -19,6 +19,20 @@ class Author(models.Model):
         """
         return reverse('author-detail', args=[str(self.id)])
 
+    def get_absolute_delete_url(self):
+        """
+
+        :return: the url to delete this author.
+        """
+        return reverse('author-delete', args=[str(self.id)])
+
+    def get_absolute_update_url(self):
+        """
+
+        :return: the url to update this author.
+        """
+        return reverse('author-update', args=[str(self.id)])
+
     def __str__(self):
         return '%s %s' % (self.first_name, self.last_name)
 
