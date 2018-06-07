@@ -32,14 +32,16 @@
             <tr>
               <td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></td>
               <td>{{ book.author }}</td>
-              <td class="col-md-2">
-                {% if perms.catalog.delete_book %}
-                  <a href="{{ book.get_absolute_delete_url }}"><span class="glyphicon glyphicon-remove"></span></a>&nbsp;&nbsp;&nbsp;
-                {% endif %}
-                {% if perms.catalog.change_book %}
-                  <a href="{{ book.get_absolute_update_url }}"><span class="glyphicon glyphicon-pencil"></span></a>
-                {% endif %}
-              </td>
+              {% if perms.catalog.delete_book or perms.catalog.change_book %}
+                <td class="col-md-2">
+                  {% if perms.catalog.delete_book %}
+                    <a href="{{ book.get_absolute_delete_url }}"><span class="glyphicon glyphicon-remove"></span></a>&nbsp;&nbsp;&nbsp;
+                  {% endif %}
+                  {% if perms.catalog.change_book %}
+                    <a href="{{ book.get_absolute_update_url }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                  {% endif %}
+                </td>
+              {% endif %}
             </tr>
           {% endfor %}
         </tbody>
